@@ -11,6 +11,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
     <style>
+        * {
+            overflow: hidden;
+        }
+
         #inputs {
             padding-left: 4px;
             padding-right: 4px;
@@ -38,7 +42,7 @@
             <h1>Meus recados
 
                 <!-- feature - botão de logout -->
-                <button style="" id="submit" type="submit" onclick="logout()" class="btn btn-sm btn-outline-danger ">
+                <button id="submit" type="submit" onclick="logout()" class="btn btn-sm btn-outline-danger ">
                     logout
                 </button>
                 <!-- fim da feature -->
@@ -65,7 +69,7 @@
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li><a class="dropdown-item" onclick="addTask()">Adicionar ao fim da lista</a></li>
-                            <li><a class="dropdown-item" onclick="addTaskTop()">Adicionar prioridade</a></li>
+                            <li><a class="dropdown-item" onclick="addTaskTop()">Adicionar ao início da lista</a></li>
                         </ul>
                         <!-- fim da feature -->
 

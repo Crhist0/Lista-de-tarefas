@@ -1,3 +1,9 @@
+document.getElementById("submit").addEventListener("click", function (event) {
+    createAcc();
+    event.preventDefault();
+    setTimeout(() => location.reload(), 2000);
+});
+
 // função para criar conta
 
 function createAcc() {
@@ -15,25 +21,46 @@ function createAcc() {
 
     // validação de conta
     if (!Name && !Pass && Rpass) {
-        alert("Insira um nome.");
+        Swal.fire({
+            icon: "error",
+            title: "Insira um nome.",
+        });
         return;
     } else if (Name && Rpass !== Pass) {
-        alert("A senha não foi repetida corretamente.");
+        Swal.fire({
+            icon: "error",
+            title: "A senha não foi repetida corretamente.",
+        });
         return;
     } else if (!Name && !Pass) {
-        alert("Insira um nome e uma senha.");
+        Swal.fire({
+            icon: "error",
+            title: "Insira um nome e uma senha.",
+        });
         return;
     } else if (Pass == "") {
-        alert("Insira uma senha válida.");
+        Swal.fire({
+            icon: "error",
+            title: "Insira uma senha válida.",
+        });
         return;
     } else if ((!Name && Pass) || (!Name && Rpass)) {
-        alert("Insira um nome.");
+        Swal.fire({
+            icon: "error",
+            title: "Insira um nome.",
+        });
         return;
     } else if (Name.length <= 3) {
-        alert("Nome muito curto.");
+        Swal.fire({
+            icon: "info",
+            title: "Nome deve ter ao menos 4 caracteres.",
+        });
         return;
     } else if (Pass.length <= 3) {
-        alert("Senha muito curta.");
+        Swal.fire({
+            icon: "info",
+            title: "Senha deve ter ao menos 4 caracteres.",
+        });
         return;
     }
 
@@ -64,7 +91,10 @@ function createAcc() {
             console.log("checando contas duplicadas");
             for (let X = 0; X < accList.length; X++) {
                 if (accList[X].formName === acc.formName) {
-                    alert("já existe uma conta de nome " + acc.formName);
+                    Swal.fire({
+                        icon: "error",
+                        title: `já existe uma conta de nome ${acc.formName}`,
+                    });
                     return;
                 }
             }

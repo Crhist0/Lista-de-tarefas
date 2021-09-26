@@ -1,30 +1,61 @@
-document.getElementById("submit").addEventListener("click", logIn);
+// document.getElementById("submit").addEventListener("click", logIn);
 
-if (localStorage.getItem("accList") === null) {
-    let accList = [];
-    localStorage.setItem("accList", JSON.stringify(accList));
-}
+document.getElementById("submit").addEventListener("click", function (event) {
+    logIn();
+    event.preventDefault();
+    // location.reload();
+    setTimeout(() => location.reload(), 2000);
+});
 
 let accList = JSON.parse(localStorage.getItem("accList"));
 let name = document.getElementById("name");
 let pass = document.getElementById("pass");
 
 function logIn() {
+    if (localStorage.getItem("accList") === null) {
+        let accList = [];
+        localStorage.setItem("accList", JSON.stringify(accList));
+    }
+
     if (testEmptyLogIn() == false) {
         return;
     }
 
     if (testExistentAccName() == false) {
-        alert("Conta não encontrada.");
+        Swal.fire({
+            icon: "error",
+            title: "Conta não encontrada.",
+        });
         return;
     }
 
     if (testAccNameAndPass() == true) {
-        alert(`Bem vindo ${name.value}!`);
-        window.location.assign("taskList.html");
-        alert(""); // não sei porque, mas sem esse alerta o "window.location.assign("recados.html");" não vai
+        let alertaBootstrap = '<div class="alert alert-success" role="alert">Bem vindo ' + name.value + "!</div>";
+        Swal.fire({
+            icon: "success",
+            html: alertaBootstrap,
+            title: "Logando...",
+            text: `Bem vindo ${name.value}!`,
+            timer: 2000,
+            timerProgressBar: true,
+            didOpen: () => {
+                Swal.showLoading();
+                const b = Swal.getHtmlContainer().querySelector("b");
+                timerInterval = setInterval(() => {
+                    b.textContent = Swal.getTimerLeft();
+                }, 100);
+            },
+            willClose: () => {
+                clearInterval(timerInterval);
+            },
+        });
+        // window.location.assign("taskList.html");
+        // alert(""); // não sei porque, mas sem esse alerta o "window.location.assign("recados.html");" não vai
     } else {
-        alert("Senha incorreta.");
+        Swal.fire({
+            icon: "error",
+            title: "Senha incorreta.",
+        });
         return;
     }
     // alert("passou todos os testes");
@@ -34,7 +65,11 @@ function testEmptyLogIn() {
     if (name.value && pass.value) {
         return true;
     } else {
-        alert("Insira o nome e a senha.");
+        // Swal.fire("Insira o nome e a senha.");
+        Swal.fire({
+            icon: "error",
+            title: "Insira o nome e a senha.",
+        });
         return false;
     }
 }
@@ -59,4 +94,8 @@ function testAccNameAndPass() {
             return true;
         }
     }
+}
+
+if (!!JSON.parse(localStorage.getItem("loggedUser"))) {
+    window.location.assign("taskList.html");
 }

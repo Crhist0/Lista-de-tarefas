@@ -25,13 +25,22 @@ function isLogged() {
 
 function validateInputs() {
     if (!document.getElementById("description").value && !document.getElementById("detail").value) {
-        Swal.fire("Insira uma descrição e um detalhamento!");
+        Swal.fire({
+            icon: "error",
+            title: "Insira uma descrição e um detalhamento.",
+        });
         return false;
     } else if (!document.getElementById("description").value) {
-        Swal.fire("Insira uma descrição!");
+        Swal.fire({
+            icon: "error",
+            title: "Insira uma descrição.",
+        });
         return false;
     } else if (!document.getElementById("detail").value) {
-        Swal.fire("Insira um detalhamento!");
+        Swal.fire({
+            icon: "error",
+            title: "Insira um detalhamento.",
+        });
         return false;
     } else {
         return true;
@@ -97,14 +106,14 @@ function showList() {
             "</td>" +
             '<td id="tableDescription' +
             y +
-            '">' +
+            '"> <p style="max-width: 10vw; overflow: auto; scrollbar-width: thin; ">' +
             taskList[y].description +
-            "</td>" +
+            "</p></td>" +
             '<td id="tableDetails' +
             y +
-            '">' +
+            '"> <p style="max-width: 65vw; overflow: auto; scrollbar-width: thin; ">' +
             taskList[y].detail +
-            "</td>" +
+            "</p></td>" +
             '<td id="tableAction' +
             y +
             '">' +
@@ -168,7 +177,7 @@ function showList() {
             ')">Salvar</button>' +
             "</div>" +
             "</div>" +
-            "</div>;";
+            "</div>";
         y++;
         // detailsHistory.value.innerText = `${detailsHistory}`;
     }
@@ -189,13 +198,22 @@ function saveEdit(x) {
         let desc = document.getElementById("floatingDescription" + x).value;
         let det = document.getElementById("floatingDetails" + x).value;
         if (!desc && !det) {
-            Swal.fire("Insira uma descrição e um detalhamento!");
+            Swal.fire({
+                icon: "error",
+                title: "Insira uma descrição e um detalhamento.",
+            });
             return false;
         } else if (!desc) {
-            Swal.fire("Insira uma descrição!");
+            Swal.fire({
+                icon: "error",
+                title: "Insira uma descrição.",
+            });
             return false;
         } else if (!det) {
-            Swal.fire("Insira um detalhamento!");
+            Swal.fire({
+                icon: "error",
+                title: "Insira um detalhamento.",
+            });
             return false;
         } else {
             return true;
@@ -215,6 +233,22 @@ function saveEdit(x) {
 // feature - logout button
 function logout() {
     localStorage.removeItem("loggedUser");
-    Swal.fire("Deslogado Usuário...");
-    setTimeout(() => (window.location.href = "index.html"), 1500);
+    let alertaBootstrap = '<div class="alert alert-success" role="alert">Deslogando usuário...</div>';
+    Swal.fire({
+        icon: "info",
+        html: alertaBootstrap,
+        timer: 2000,
+        timerProgressBar: true,
+        didOpen: () => {
+            Swal.showLoading();
+            const b = Swal.getHtmlContainer().querySelector("b");
+            timerInterval = setInterval(() => {
+                b.textContent = Swal.getTimerLeft();
+            }, 100);
+        },
+        willClose: () => {
+            clearInterval(timerInterval);
+        },
+    });
+    setTimeout(() => (window.location.href = "index.html"), 2000);
 }

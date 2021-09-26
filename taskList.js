@@ -148,14 +148,18 @@ function showList() {
             '<div class="form-floating mb-3">' +
             '<input type="text" class="form-control" id="floatingDescription' +
             y +
-            '" placeholder="">' +
+            '" placeholder=" " value="' +
+            taskList[y].description +
+            '" >' +
             '<label for="floatingDescription">Descrição</label>' +
             "</div>" +
             '<div class="form-floating">' +
             '<input type="text" class="form-control" id="floatingDetails' +
             y +
-            '" placeholder="teste">' +
-            '<label for="floatingDetails">Detalhamento</label>' +
+            '" placeholder=" " value="' +
+            taskList[y].detail +
+            '" >' +
+            '<label id="detailsHistory" for="floatingDetails">Detalhamento</label>' +
             "</div>" +
             "</div>" +
             '<button style="margin: 0px 16px 0px;" type="button" class="btn btn-secondary"data-bs-dismiss="modal">Cancelar</button>' +
@@ -166,6 +170,7 @@ function showList() {
             "</div>" +
             "</div>;";
         y++;
+        // detailsHistory.value.innerText = `${detailsHistory}`;
     }
 }
 

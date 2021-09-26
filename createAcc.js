@@ -80,7 +80,7 @@ function createAcc() {
             localStorage.setItem("accList", accListJSON);
             alert("Conta de " + acc.formName + " criada com sucesso!");
             window.location.href = "index.html"; // esta linha não está entrando, não entendi porque :/
-            alert(""); // com esse alerta o comando acima vai, pra mim não fez sentido
+            // alert(""); // com esse alerta o comando acima vai, pra mim não fez sentido
         } //Fim da função
 
         // verificação de lista vazia
